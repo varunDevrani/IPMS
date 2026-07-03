@@ -35,15 +35,14 @@ public class AuthController: ControllerBase
     [HttpPost("signup")]
     public ActionResult<UserDto> Register(AuthSignupDto payload)
     {
-        if(payload.Password != payload.PasswordConfirm)
-        {
+        if (payload.Password != payload.PasswordConfirm)
             return Conflict("Password and PasswordConfirm mismatch");
-        }
 
-        User? userExists = _context.Users.FirstOrDefault(u => u.Email == payload.Email || u.PhoneNumber == payload.PhoneNumber);
-        if(userExists is not null) {
-            return Conflict("User with the email or phone number already exits");
-        }
+        User? userExists = _context.Users.FirstOrDefault(
+            u => u.Email == payload.Email || u.PhoneNumber == payload.PhoneNumber);
+
+        if (userExists is not null)
+            return Conflict("User with the email or phone number already exists");
 
         var user = new User
         {
@@ -56,6 +55,17 @@ public class AuthController: ControllerBase
         _context.Users.Add(user);
         _context.SaveChanges();
 
+        var customerRole = _context.Roles
+            .Single(r => r.Name == "Customer");
+
+        _context.UserRoles.Add(new UserRole
+        {
+            UserId = user.Id,
+            RoleId = customerRole.Id
+        });
+
+        _context.SaveChanges();
+
         return Ok(new UserDto
         {
             FirstName = user.FirstName,
@@ -66,7 +76,7 @@ public class AuthController: ControllerBase
             CreatedAt = user.CreatedAt,
             UpdatedAt = user.UpdatedAt
         });
-    }   
+    }
 
     
     [HttpPost("login")]

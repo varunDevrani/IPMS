@@ -19,7 +19,8 @@ public class AppDbContext: DbContext
     public DbSet<Customer> Customers {get; set;}
     public DbSet<CustomerAddress> CustomerAddresses {get; set;}
     public DbSet<Product> Products {get; set;}
-    public DbSet<Policy> Polices {get; set;}
+    public DbSet<Quote> Quotes {get; set;}
+    public DbSet<Policy> Policies {get; set;}
     public DbSet<PremiumPayment> PremiumPayments {get; set;}
     public DbSet<Claim> Claims {get; set;}
     public DbSet<ClaimStatus> ClaimStatuses {get; set;}

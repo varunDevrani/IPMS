@@ -2,6 +2,7 @@
 using System.Text;
 using IPMS.Data;
 using IPMS.Middlewares;
+using IPMS.Seeders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +12,7 @@ namespace IPMS;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,17 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+
+            var dbContext = services.GetRequiredService<AppDbContext>();
+
+            await dbContext.Database.MigrateAsync();
+
+            await RoleSeeder.SeedAsync(dbContext);
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

@@ -13,6 +13,7 @@ public enum PolicyStatus
 public class Policy: BaseEntity
 {
     public required string PolicyNumber {get; set;}
+    public required Guid QuoteId { get; set; }
     public required Guid ProductId {get; set;}
     public required Guid CustomerId {get; set;}
     public required Guid InsuranceAgentId {get; set;}
