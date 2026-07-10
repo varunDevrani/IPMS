@@ -107,19 +107,12 @@ public class QuoteController: ControllerBase
             select new QuoteDto
             {
                 Id = quote.Id,
-
                 ProductName = product.Name,
-
                 CoverageAmount = quote.CoverageAmount,
-
                 PremiumAmount = quote.PremiumAmount,
-
                 QuoteDate = quote.QuoteDate,
-
                 ValidUntil = quote.ValidUntil,
-
                 Status = quote.Status,
-
                 CreatedAt = quote.CreatedAt
             }
         ).ToList();
@@ -154,19 +147,12 @@ public class QuoteController: ControllerBase
             select new QuoteDto
             {
                 Id = q.Id,
-
                 ProductName = p.Name,
-
                 CoverageAmount = q.CoverageAmount,
-
                 PremiumAmount = q.PremiumAmount,
-
                 QuoteDate = q.QuoteDate,
-
                 ValidUntil = q.ValidUntil,
-
                 Status = q.Status,
-
                 CreatedAt = q.CreatedAt
             }
         ).FirstOrDefault();

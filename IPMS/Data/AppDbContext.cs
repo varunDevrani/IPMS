@@ -23,7 +23,6 @@ public class AppDbContext: DbContext
     public DbSet<Policy> Policies {get; set;}
     public DbSet<PremiumPayment> PremiumPayments {get; set;}
     public DbSet<Claim> Claims {get; set;}
-    public DbSet<ClaimStatus> ClaimStatuses {get; set;}
     public DbSet<ClaimDocument> ClaimDocuments {get; set;}
     public DbSet<ErrorLog> ErrorLogs {get; set;}
     public DbSet<AuditLog> AuditLogs {get; set;}

@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace IPMS.Controllers;
 
 
-
+[ApiController]
+[Route("api/[controller]")]
 public class PolicyController: ControllerBase
 {
     private readonly AppDbContext _context;
